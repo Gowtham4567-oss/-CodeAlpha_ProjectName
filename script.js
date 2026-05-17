@@ -1,26 +1,50 @@
 const display = document.getElementById('display');
+const calculator = document.getElementById('calculator');
+const sciKeys = document.getElementById('scientific-keys');
+const modeToggle = document.getElementById('mode-toggle');
 
-// Append numbers or operators to the screen
-function appendToDisplay(input) {
-    display.value += input;
+let isScientific = false;
+
+// Seamlessly toggle between basic structure and expanded grid panels
+function toggleMode() {
+    isScientific = !isScientific;
+    if (isScientific) {
+        calculator.classList.add('scientific-active');
+        sciKeys.style.display = 'grid';
+        modeToggle.innerText = "Basic Mode";
+    } else {
+        calculator.classList.remove('scientific-active');
+        sciKeys.style.display = 'none';
+        modeToggle.innerText = "Scientific Mode";
+    }
 }
 
-// Clear the entire screen
-function clearDisplay() {
+function press(val) {
+    if (display.value === "Error") display.value = "";
+    display.value += val;
+}
+
+function clearScreen() {
     display.value = "";
 }
 
-// Delete the last character entered
-function deleteLast() {
+function delLast() {
     display.value = display.value.slice(0, -1);
 }
 
-// Perform the calculation
 function calculate() {
     try {
-        // eval() takes the string and treats it as math
-        display.value = eval(display.value);
-    } catch (error) {
+        let expression = display.value;
+        
+        // Match explicit display symbols back into syntax compatible with core execution
+        expression = expression.replace(/×/g, '*').replace(/÷/g, '/');
+        
+        if (expression !== "") {
+            let result = eval(expression);
+            // Handle precision layout adjustments for decimals cleanly
+            display.value = Number(result).toFixed(4).replace(/\.?0+$/, "");
+        }
+    } catch (err) {
         display.value = "Error";
     }
 }
