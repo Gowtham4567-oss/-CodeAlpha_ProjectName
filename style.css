@@ -1,129 +1,97 @@
 * {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #0f172a;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    background-color: #0f172a; /* Sleek dark background */
 }
 
 .calculator {
+    width: 320px;
     background-color: #1e293b;
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-    width: 340px; /* Standard basic window width */
-    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Expanded state class activated via JavaScript */
-.calculator.scientific-active {
-    width: 580px;
-}
-
-.calc-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #94a3b8;
-    margin-bottom: 12px;
-    padding: 0 4px;
-}
-
-.calc-header h3 {
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    color: #3b82f6;
-}
-
-.calc-header span {
-    font-size: 11px;
-    text-transform: uppercase;
-}
-
-#mode-toggle {
-    width: 100%;
-    padding: 10px;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.2s;
-}
-
-#mode-toggle:hover {
-    background-color: #2563eb;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 #display {
     width: 100%;
-    height: 65px;
+    height: 70px;
     background-color: #0f172a;
     border: none;
-    color: #f8fafc;
-    font-size: 32px;
-    text-align: right;
-    margin-bottom: 20px;
-    padding: 0 15px;
+    outline: none;
     border-radius: 8px;
+    color: #f8fafc;
+    font-size: 2rem;
+    text-align: right;
+    padding: 10px 15px;
+    margin-bottom: 20px;
 }
 
-.grid-container {
-    display: flex;
-    gap: 15px;
-}
-
-.scientific-keys {
-    display: none; /* Inactive on launch */
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    width: 42%;
-}
-
-.standard-keys {
+.buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    width: 100%;
-}
-
-/* Shifts relative column space balances when running side-by-side components */
-.calculator.scientific-active .standard-keys { 
-    width: 58%; 
+    gap: 12px;
 }
 
 button {
-    height: 52px;
-    border-radius: 8px;
+    padding: 18px;
+    font-size: 1.25rem;
+    font-weight: 600;
     border: none;
+    outline: none;
+    border-radius: 8px;
     background-color: #334155;
     color: #f8fafc;
-    font-size: 18px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
 }
 
-button:hover { background-color: #475569; }
+button:hover {
+    background-color: #475569;
+}
 
-.btn-op { background-color: #f97316; }
-.btn-op:hover { background-color: #ea580c; }
+button:active {
+    transform: scale(0.95);
+}
 
-.btn-ctrl { background-color: #94a3b8; color: #0f172a; }
-.btn-ctrl:hover { background-color: #cbd5e1; }
+/* Operator Custom Colors */
+.btn-operator {
+    background-color: #f97316; /* Bright orange */
+    color: white;
+}
+.btn-operator:hover {
+    background-color: #ea580c;
+}
 
-.btn-sci { background-color: #1e3a8a; color: #93c5fd; font-size: 15px; }
-.btn-sci:hover { background-color: #1e40af; }
+.btn-clear {
+    background-color: #ef4444; /* Soft Red */
+    color: white;
+}
+.btn-clear:hover {
+    background-color: #dc2626;
+}
 
-.btn-equal { background-color: #10b981; }
-.btn-equal:hover { background-color: #059669; }
+.btn-delete {
+    background-color: #64748b;
+}
 
-.btn-zero { grid-column: span 2; }
+.btn-equal {
+    grid-row: span 2; /* Spans across two rows */
+    background-color: #10b981; /* Emerald green */
+    color: white;
+}
+.btn-equal:hover {
+    background-color: #059669;
+}
+
+.btn-zero {
+    grid-column: span 2; /* Takes up two grid columns */
+}
