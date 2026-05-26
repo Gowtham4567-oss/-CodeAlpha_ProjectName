@@ -3,59 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Calculator | Gowtham M.S.</title>
+    <title>CodeAlpha Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="calculator" id="calculator">
-        <div class="calc-header">
-            <h3>Gowtham M.S.</h3>
-            <span>Advanced Calc</span>
-        </div>
-
-        <button id="mode-toggle" onclick="toggleMode()">Scientific Mode</button>
-
-        <input type="text" id="display" placeholder="0" disabled>
+    <div class="calculator">
+        <input type="text" id="display" readonly placeholder="0">
         
-        <div class="grid-container">
-            <div class="scientific-keys" id="scientific-keys">
-                <button onclick="press('Math.sin(')" class="btn-sci">sin</button>
-                <button onclick="press('Math.cos(')" class="btn-sci">cos</button>
-                <button onclick="press('Math.tan(')" class="btn-sci">tan</button>
-                <button onclick="press('Math.log10(')" class="btn-sci">log</button>
-                <button onclick="press('Math.PI')" class="btn-sci">π</button>
-                <button onclick="press('Math.sqrt(')" class="btn-sci">√</button>
-                <button onclick="press('**')" class="btn-sci">xʸ</button>
-                <button onclick="press('(')" class="btn-sci">(</button>
-                <button onclick="press(')')" class="btn-sci">)</button>
-            </div>
+        <div class="buttons">
+            <button onclick="clearDisplay()" class="btn-clear">C</button>
+            <button onclick="appendValue('/')" class="btn-operator">/</button>
+            <button onclick="appendValue('*')" class="btn-operator">×</button>
+            <button onclick="deleteLast()" class="btn-delete">DEL</button>
 
-            <div class="standard-keys">
-                <button onclick="clearScreen()" class="btn-ctrl">AC</button>
-                <button onclick="delLast()" class="btn-ctrl">DEL</button>
-                <button onclick="press('%')" class="btn-op">%</button>
-                <button onclick="press('/')" class="btn-op">÷</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('-')" class="btn-operator">-</button>
 
-                <button onclick="press('7')">7</button>
-                <button onclick="press('8')">8</button>
-                <button onclick="press('9')">9</button>
-                <button onclick="press('*')" class="btn-op">×</button>
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('+')" class="btn-operator">+</button>
 
-                <button onclick="press('4')">4</button>
-                <button onclick="press('5')">5</button>
-                <button onclick="press('6')">6</button>
-                <button onclick="press('-')" class="btn-op">-</button>
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="calculate()" class="btn-equal">=</button>
 
-                <button onclick="press('1')">1</button>
-                <button onclick="press('2')">2</button>
-                <button onclick="press('3')">3</button>
-                <button onclick="press('+')" class="btn-op">+</button>
-
-                <button onclick="press('0')" class="btn-zero">0</button>
-                <button onclick="press('.')">.</button>
-                <button onclick="calculate()" class="btn-equal">=</button>
-            </div>
+            <button onclick="appendValue('0')" class="btn-zero">0</button>
+            <button onclick="appendValue('.')">.</button>
         </div>
     </div>
 
