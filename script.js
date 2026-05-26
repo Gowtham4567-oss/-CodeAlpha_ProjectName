@@ -1,50 +1,54 @@
-const display = document.getElementById('display');
-const calculator = document.getElementById('calculator');
-const sciKeys = document.getElementById('scientific-keys');
-const modeToggle = document.getElementById('mode-toggle');
+const display = document.getElementById("display");
 
-let isScientific = false;
-
-// Seamlessly toggle between basic structure and expanded grid panels
-function toggleMode() {
-    isScientific = !isScientific;
-    if (isScientific) {
-        calculator.classList.add('scientific-active');
-        sciKeys.style.display = 'grid';
-        modeToggle.innerText = "Basic Mode";
-    } else {
-        calculator.classList.remove('scientific-active');
-        sciKeys.style.display = 'none';
-        modeToggle.innerText = "Scientific Mode";
-    }
+// Appends input to the calculator screen
+function appendValue(input) {
+    // Prevent starting with consecutive math symbols
+    if (display.value === "" && ["+", "*", "/"].includes(input)) return;
+    display.value += input;
 }
 
-function press(val) {
-    if (display.value === "Error") display.value = "";
-    display.value += val;
-}
-
-function clearScreen() {
+// Clears the entire display screen
+function clearDisplay() {
     display.value = "";
 }
 
-function delLast() {
+// Deletes the last character entered
+function deleteLast() {
     display.value = display.value.slice(0, -1);
 }
 
+// Safely evaluates the string math statement
 function calculate() {
     try {
-        let expression = display.value;
+        if (display.value.trim() === "") return;
         
-        // Match explicit display symbols back into syntax compatible with core execution
-        expression = expression.replace(/×/g, '*').replace(/÷/g, '/');
+        // Using Function() over eval() for safer sandboxed parsing
+        const result = new Function(`return ${display.value}`)();
         
-        if (expression !== "") {
-            let result = eval(expression);
-            // Handle precision layout adjustments for decimals cleanly
-            display.value = Number(result).toFixed(4).replace(/\.?0+$/, "");
+        // Handle division by zero or errors
+        if (result === Infinity || isNaN(result)) {
+            display.value = "Error";
+        } else {
+            // Limits trailing floating-point decimals to avoid breakdown bugs (e.g., 0.1+0.2)
+            display.value = Number(result.toFixed(4));
         }
-    } catch (err) {
+    } catch (error) {
         display.value = "Error";
     }
 }
+
+// BONUS: Keyboard Functionality Support
+document.addEventListener("keydown", function(event) {
+    const key = event.key;
+    
+    if (key >= "0" && key <= "9" || key === "." || key === "+" || key === "-" || key === "*" || key === "/") {
+        appendValue(key);
+    } else if (key === "Enter" || key === "=") {
+        event.preventDefault(); // Prevents button focus triggers
+        calculate();
+    } else if (key === "Backspace") {
+        deleteLast();
+    } else if (key === "Escape") {
+        clearDisplay();
+    }
+});
